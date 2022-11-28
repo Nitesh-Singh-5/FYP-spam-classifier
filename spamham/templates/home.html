@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <h1 style="color:white">SpamHam Spam Hammmm......</h1>
+    <div class="jumbotron" style="padding-top: 10px">
+        <h2>What is SpamHam, what does it do?</h2>
+        <div><p>Unsolicited messages which we did not ask for from a source is what we call <b><a
+                href="https://blog.barracuda.com/2013/10/03/ham-v-spam-whats-the-difference/">SPAM</a></b>.<br> Messages
+            which are the desired ones and are not spam are known as <b><a
+                    href="https://blog.barracuda.com/2013/10/03/ham-v-spam-whats-the-difference/">HAM</a></b>.
+            <br> Wait! Don't go away, I got an example of a spam. Yes the one below! <br> <em
+                    style="color:rebeccapurple">A [redacted] loan for Rs 100K is approved for you if you receive this
+                SMS. 1 min verification & cash in 1 hr at www.[redacted].co.in to opt out reply stop</em></p>
+            <p>This web app is powered with ML, NLP which identifies whether the message is a spam or not.</p>
+            <p><b>Write or paste a message/email in the text box below to find out is it a spam or not?</b></p></div>
+        <form method="post">
+            {#    	<input type="text" class="" name="message" placeholder="Write your message here..." required="required" />#}
+            <textarea class="btn-block" name="message" rows="10" cols="8" placeholder="Write here... eg; Hello, how are you? "
+                      required="required"></textarea>
+            <br>
+            <button type="submit" onclick="scrollDown()" class="btn btn-danger btn-block btn-large"> is it a Spam? Check
+                me out!
+            </button>
+            {% csrf_token %}
+        </form>
+    </div>
+
+    <br><br>
+    <div id="scroll">
+        <p> Result-</p>
+        {% if result %}
+            {#    <script> gotoBottom("result") </script>#}
+
+
+            <div class="jumbotron" style="padding-top: 10px" id="result">
+                <script>scrollDown();</script>
+
+                <div> You entered <br> "{{ message }}" <br></div>
+                <p>which is <strong style="font-size: larger">{{ result }}</strong>!</p> <br>
+                <p>Test accuracy: {{ accuracy }}%</p>
+                <p> Under the hood: Naive Bayes, with NLP(BOW, TF-IDF)</p>
+            </div>
+            <script>scrollDown();</script>
+
+
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+
+    {#    <script>scrollDown();</script>#}
+
+
+{% endblock %}
