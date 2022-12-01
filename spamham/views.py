@@ -8,35 +8,11 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
 from utils import text_process
 from manage import importPipelines
-from .models import Form_Message
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
-from .forms import FeedbackForm
+from .models import Form_Message, Feedback_Model
 
 # Create your views here.
 def home(request):
-    # if request.method == 'POST':
-    #     message = request.POST.get('message')
-    #     message_cp = message
-    #     message = [message]
-    #     message = text_process(message)
-    #     message = [' '.join(message)]
-    #     model = Form_Message
-    #     result, accuracy = predict(message)
-    #     print('result is ', result, 'with accuracy ', accuracy)
-    #     return render(request, 'home.html', {'result': result, 'message': message_cp, 'accuracy': accuracy})
-
-    # if request.method == 'POST':
-    #     data = JSONParser().parse(request)
-    #     serializer = TransformerSerializer(data=data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonResponse(serializer.data, status=201)
-    #     return JsonResponse(serializer.errors, status=400)
-
-    # return render(request, 'home.html')
-
-    if request.method == "POST":
+    if request.method == "POST" and 'htmlsubmitbutton1' in request.POST:
         print("initialize")
         message = request.POST.get('message')
         print("get")
@@ -53,20 +29,18 @@ def home(request):
         print('result is ', result, 'with accuracy ', accuracy)
         return render(request, 'home.html', {'result': result, 'message': message_cp, 'accuracy': accuracy})
 
+    if request.method=='POST' and 'htmlsubmitbutton2' in request.POST:
+        message = request.POST.get('message')
+        your_prediction = request.POST.get('your_prediction')
+        result = request.POST.get('result')
+        Feedback_Model.objects.create(
+            message = message,
+            your_prediction = your_prediction,
+            our_prediction = result
+        )
+        return render(request, 'home.html')
+
     return render(request, "home.html")
-
-
-    # if request.method == 'POST':
-    #     fm = FeedbackForm(request.POST)
-    #     if fm.is_valid():
-    #         message = fm.cleaned_data['message']
-    #         print(message)
-    #         reg= Form_Message(message=message)
-    #         reg.save()
-    #         fm = StudentRegistration()
-    #     else:
-    #         fm=StudentRegistration()
-    # return render(request, 'home.html',{'form':fm})
 
 
 def predict(message):
