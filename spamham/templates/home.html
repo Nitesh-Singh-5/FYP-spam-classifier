@@ -4,7 +4,6 @@
 {% block content %}
 
     <br>
-    <h1 style="color:white">SpamHam Spam Hammmm......</h1>
     <div class="jumbotron" style="padding-top: 10px">
         <h2>What is SpamHam, what does it do?</h2>
         <div><p>Unsolicited messages which we did not ask for from a source is what we call <b><a
@@ -21,7 +20,7 @@
             <textarea class="btn-block" name="message" rows="10" cols="8" placeholder="Write here... eg; Hello, how are you? "
                       required="required"></textarea>
             <br>
-            <button type="submit" onclick="scrollDown()" class="btn btn-danger btn-block btn-large"> is it a Spam? Check
+            <button type="submit" onclick="scrollDown()" name="htmlsubmitbutton1" class="btn btn-danger btn-block btn-large"> is it a Spam? Check
                 me out!
             </button>
             {% csrf_token %}
@@ -30,11 +29,13 @@
 
     <br><br>
     <div id="scroll">
-        <p> Result-</p>
+        <p> Result - </p> 
         {% if result %}
             {#    <script> gotoBottom("result") </script>#}
 
-
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Feedback
+            </button>
             <div class="jumbotron" style="padding-top: 10px" id="result">
                 <script>scrollDown();</script>
 
@@ -44,8 +45,43 @@
                 <p> Under the hood: Naive Bayes, with NLP(BOW, TF-IDF)</p>
             </div>
             <script>scrollDown();</script>
-
-
+            
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <form class="mx-5" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                          <label for="exampleFormControlInput1">Your message: </label>
+                          <input type="text" name="message" class="form-control" id="exampleFormControlInput1" value="{{message}}" readonly="readonly">
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleFormControlInput1">Our model Prediction: </label>
+                            <input type="text" name="result" class="form-control" id="exampleFormControlInput1" value="{{result}}" readonly="readonly">
+                          </div>
+                        <div class="form-group row">
+                          <label for="exampleFormControlSelect1">Result according to you :</label>
+                          <select class="form-control" id="exampleFormControlSelect1" name="your_prediction">
+                            <option value="SPAM">SPAM</option>
+                            <option value="HAM">HAM</option>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" onclick="{window.location.reload()}" class="btn btn-primary" name="htmlsubmitbutton2">Submit Feedback</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+                </div>
+            </div>
         {% else %}
             <p></p>
         {% endif %}
