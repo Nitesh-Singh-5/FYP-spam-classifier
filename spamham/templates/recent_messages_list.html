@@ -4,7 +4,7 @@
 {% block content %}
 
     <h1>Recent Messages...</h1>
-    {% for item in recent_list %}
+    {% for item in recent_list reversed %}
         <div class="d-inline-flex">
             <p class="mr-5">{{item.message}}</p>
             <p class="mr-5">{{item.result}}</p>
