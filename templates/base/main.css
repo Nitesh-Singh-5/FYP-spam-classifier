@@ -1,6 +1,7 @@
-.body{
+body{
     font-family: Roboto, serif;
     background-image: linear-gradient(to bottom left, #07455e 0%, #480844 100%);
     background-repeat: no-repeat;
+    background-color: #000;
     min-height: 100vh;
 }
