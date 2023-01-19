@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="lolo">
+<div class="recent_messages__header">
     <h1>Recent Messages...</h1>
     <table class="table">
         <thead>
@@ -16,7 +16,7 @@
         <tbody>
     {% for item in recent_list reversed %}
           <tr>
-        <td><span  tabindex="0" data-toggle="tooltip" data-placement="top" class="red-tooltip "title="{{item.message}}">{{item.message|truncatechars:50}}</span></td>
+        <td><span  tabindex="0" data-toggle="tooltip" data-placement="top" class="red-tooltip" title="{{item.message}}">{{item.message|truncatechars:50}}</span></td>
            <td><p class="mr-5">{{item.result}}</p></td>
             <td><p class="mr-5">{{item.accuracy}}</p></td>
         
@@ -25,11 +25,12 @@
 
 </tbody>
 </table>
-    <script>$(function () {
+    <script>
+      $(function () {
         $('[data-toggle="tooltip"]').tooltip()
       })
       
-      </script>
+    </script>
 
 {% endblock %}
 
