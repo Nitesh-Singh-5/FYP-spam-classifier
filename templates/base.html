@@ -8,18 +8,51 @@
     {#    <link rel="stylesheet" href="{% static "base/css.html" %}">#}
     <style>
     body{
-        background-color:#393E46;
+        background-color:#202123;
+        color: #fff;
+    }
+    .container__heading{
+        text-align: center;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 140%;
+        margin-top: 75px;
+        mix-blend-mode: normal;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .form-textarea textarea{
+        background-color: #343541;
+        width: 100%;
+        color: #fff;
+        border: 1px solid rgb(190, 186, 186);
+        border-radius: 8px;
+        outline: none;
+    }
+    .form-textarea textarea:focus {
+        border: 1px solid #fff;
     }
     .submit__btn{
-        border:none;
-        background-color: #6D9886;
+        border: 1px solid rgb(11,163,127);
+        border-radius: 4px;
+        background-color: rgb(11,163,127);
         color:#fff;
     }
-    .jumbotron{
-        background-color: #fff;
-        color:#393E46;
+    .btn__container{
+        float: right;
+        margin-right: 1rem;
     }
-    .result__header{
+    .icon__container{
+        float: right;
+        cursor: pointer;
+    }
+    .modal-content{
+        background-color:#202123;
+        color: #fff;
+    }
+    .jumbotron{
+        background-color: #343541;
         color:#fff;
     }
     .recent_messages__header{
