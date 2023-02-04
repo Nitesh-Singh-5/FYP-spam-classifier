@@ -9,7 +9,11 @@
     <style>
     body{
         background-color:#202123;
-        color: #fff;
+        color: rgb(184, 179, 179);
+    }
+    .btn:focus,.btn:active {
+        outline: none !important;
+        box-shadow: none;
     }
     .container__heading{
         text-align: center;
@@ -76,6 +80,44 @@
     }
     .tooltip.bs-tooltip-top .tooltip-arrow::before {
         border-top-color: #fff !important;
+    }
+    .feedback__modal{
+        background-color: rgb(52, 53, 65, 0.6);
+    }
+    .modal-content{
+        background-color: #25262d;
+    }
+    .feedback__dislike_icon{
+        margin-right: 1rem;
+        display: flex; 
+        height: 28px; 
+        width: 28px; 
+        flex-shrink: 0; 
+        align-items: center; 
+        justify-content: center; 
+        border-radius: 9999px; 
+        background-color: #FEE2E2; 
+    }
+    .modal__footer{
+        float: right;
+        border: 2px solid white;
+        margin-top: 0.4rem !important;
+        border: 2px solid white;
+    }
+    .main__dislike_button:hover{
+        fill: white;
+        width: 26px;
+        height: 26px;
+    }
+    .feedback__button{
+        background-color:#343541;
+        color: white;
+    }
+    .close:focus {
+        outline: none !important;
+    }
+    .feedback__button:hover{
+        background-color:#56575e;
     }
     </style>
     {% block base_head %}{% endblock %}
