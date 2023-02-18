@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="recent_messages__header flex">
+    <h4>Please describe the email which you want to check whether spam or ham in the below field</h4>
+    <div class="form-textarea d-flex">
+        <textarea name="gpt_input" id="gpt_input" class="p-3 generate__textarea" rows="1" oninput="auto_grow(this)"
+                        required></textarea>
+        <div class="d-flex justify-content-center align-items-center ml-2 cursor-pointer">
+            <svg stroke="#0BA37F" fill="none" onclick="handleSubmit()" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.4em" width="1.4em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </div>
+    </div>
+    <div class="w-75 d-none mt-3" id="parent_container">
+        <img alt="Chatbot icon" srcset="https://img.icons8.com/3d-fluency/512/chatbot.png 2x, https://img.icons8.com/3d-fluency/256/chatbot.png 1x" src="https://img.icons8.com/3d-fluency/512/chatbot.png" style="width: 46px; height: 46px;">
+        <div id="result__container_parent">
+            <a href="#" onclick="CopyToClipboard('result__container');return false;" tabindex="0" data-toggle="tooltip" data-placement="top" class="red-tooltip float-right d-none" title="copy text" id="red-tooltip">
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" fill="#fff" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon m-2">
+                    <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                </svg>
+            </a>
+            <md-block id="result__container"></md-block>
+        </div>
+        
+        </div>
+    </div>
+</div>
+<script>
+    const handleSubmit = async () => {
+        const inputMessage = document.getElementById("gpt_input").value;
+        if(inputMessage){
+            document.getElementById("parent_container").classList.remove("d-none")
+            document.getElementById("parent_container").classList.add('d-flex')
+            document.getElementById("result__container").innerText = "Typing...";
+            const resp = await fetch(`https://chat1-gr19.onrender.com/gpt?message=write an email in 500 words about ${inputMessage}`,{
+                timeout: 1000
+            })
+            .then((data)=> data.json())
+            .catch((err)=> alert(err));
+            console.log(resp.text);
+            document.getElementById("result__container").innerText = resp.text;
+            document.getElementById("red-tooltip").classList.remove("d-none")
+        }else{
+            alert("Please Enter any word")
+        }
+    }
+    function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+    function CopyToClipboard(id)
+    {
+        var r = document.createRange();
+        r.selectNode(document.getElementById(id));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+{% endblock %}
+

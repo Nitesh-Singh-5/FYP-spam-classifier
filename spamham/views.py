@@ -105,3 +105,6 @@ def predict(message):
 def RecentMessages(request):
     recent = Form_Message.objects.all()
     return render(request, 'recent_messages_list.html',{'recent_list':recent})
+
+def GenerateMessages(request):
+    return render(request, 'generate_messages.html')

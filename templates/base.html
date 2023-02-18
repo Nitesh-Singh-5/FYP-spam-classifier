@@ -6,6 +6,7 @@
     <title>Spamham</title>
     {% include "base/css.html" %}
     {#    <link rel="stylesheet" href="{% static "base/css.html" %}">#}
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
     <style>
     body{
         background-color:#202123;
@@ -36,6 +37,15 @@
     }
     .form-textarea textarea:focus {
         border: 1px solid #fff;
+    }
+    .cursor-pointer{
+        cursor: pointer;
+    }
+    .generate__textarea {
+        resize: none;
+        overflow: hidden;
+        min-height: 50px;
+        max-height: 100px;
     }
     .submit__btn{
         border: 1px solid rgb(11,163,127);
@@ -118,6 +128,37 @@
     }
     .feedback__button:hover{
         background-color:#56575e;
+    }
+    #result__container_parent {
+        position: relative;
+        background: #343541;
+        min-width: 45%;
+        padding: 10px 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        float: right;
+        right: 20px;
+        margin: 20px 0px 0px 40px!important;
+    }
+    #result__container_parent::before {
+        content: '';
+        position: absolute;
+        visibility: visible;
+        top: -1px;
+        left: -10px;
+        border: 10px solid transparent;
+        border-top: 10px solid #ccc;
+    }
+
+    #result__container_parent::after {
+        content: '';
+        position: absolute;
+        visibility: visible;
+        top: 0px;
+        left: -8px;
+        border: 10px solid transparent;
+        border-top: 10px solid #343541;
+        clear: both;
     }
     @media only screen and (max-width: 760px) {
         .second__container{
